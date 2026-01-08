@@ -2,9 +2,9 @@ class Solution {
 public:
     void f(int idx,vector<int>&temp,set<vector<int>>&st,vector<int>&nums){
         if(idx>=nums.size()){
-            if(st.find(temp)==st.end()){
+            //if(st.find(temp)==st.end()){
                 st.insert(temp);
-            }
+            //}
             return;
         }
         temp.push_back(nums[idx]);
