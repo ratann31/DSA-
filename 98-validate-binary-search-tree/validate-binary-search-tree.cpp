@@ -12,20 +12,16 @@
 class Solution {
 public:
     bool check(TreeNode* root,long long minVal,long long maxVal){
-        //base case
         if(root==NULL){
             return true;
         }
-        //check
-        if(root->val <=minVal || root->val >=maxVal){
-            return false;   
+        if(root->val>=maxVal || root->val<=minVal){
+            return false;
         }
-        //check left
-        bool left_check=check(root->left,minVal,root->val);
-        //check right
-        bool right_check=check(root->right,root->val,maxVal);
+        bool leftCheck=check(root->left,minVal,root->val);
+        bool rightCheck=check(root->right,root->val,maxVal);
 
-        return left_check && right_check;
+        return leftCheck && rightCheck;        
     }
     bool isValidBST(TreeNode* root) {
         return check(root,LLONG_MIN,LLONG_MAX);
