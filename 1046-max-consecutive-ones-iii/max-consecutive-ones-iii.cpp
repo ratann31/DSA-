@@ -1,12 +1,9 @@
 class Solution {
 public:
     int longestOnes(vector<int>& nums, int k) {
-        //find longest subarray containing at max k zeros
         int n=nums.size();
-        int l=0;
-        int r=0;
-        int ans=0;
-        int zeros=0;
+        int l=0,r=0;
+        int zeros=0,mxLen=0;
         while(r<n){
             if(nums[r]==0){
                 zeros++;
@@ -17,9 +14,9 @@ public:
                 }
                 l++;
             }
-            ans=max(ans,r-l+1);
+            mxLen=max(mxLen,r-l+1);
             r++;
         }
-        return ans;
+        return mxLen;
     }
 };
