@@ -8,10 +8,12 @@ public:
         int m=s.size();
 
         int l=0,r=0;
+        int ans=0;
         while(r<m && l<n){
             if(s[r]>=g[l]){ //cookie can be assigned 
                 l++;
                 r++;
+                ans++;
             }else{
                 r++;
             }
