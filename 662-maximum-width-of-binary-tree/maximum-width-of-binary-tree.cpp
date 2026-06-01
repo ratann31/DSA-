@@ -11,21 +11,28 @@
  */
 class Solution {
 public:
-    typedef unsigned long long ll;
     int widthOfBinaryTree(TreeNode* root) {
-        ll ans=1;
-        queue<pair<TreeNode*,ll>>q;
+        long long mx=1;
+        queue<pair<TreeNode*,int>>q;//{node,index}
         q.push({root,0});
         while(!q.empty()){
-            ll sz=q.size();
-            ll start=q.front().second;
-            ll end=q.back().second;
-            ans=max(ans,end-start+1);
-            while(sz--){
+            int sz=q.size();
+            long long minIdx=q.front().second;
+            long long left=0,right=0;
+
+            for(int i=0;i<sz;i++){
                 auto it=q.front();
                 q.pop();
+
                 TreeNode* currNode=it.first;
-                ll idx=it.second;
+                long long idx=it.second-minIdx;
+
+                if(i==0){
+                    left=idx;
+                }
+                if(i==sz-1){
+                    right=idx;
+                }
                 if(currNode->left){
                     q.push({currNode->left,2*idx+1});
                 }
@@ -33,8 +40,8 @@ public:
                     q.push({currNode->right,2*idx+2});
                 }
             }
-           
+            mx=max(mx,right-left+1);
         }
-        return (int)ans;
+        return mx;
     }
 };
