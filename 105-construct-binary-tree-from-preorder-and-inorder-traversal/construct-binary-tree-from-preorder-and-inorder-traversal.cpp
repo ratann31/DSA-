@@ -1,29 +1,37 @@
-
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
 class Solution {
-public: 
-    TreeNode* f(vector<int>& preorder, vector<int>& inorder,int start,int end,int&idx){
-        if(start>end){
-            return NULL;    
+public:
+    int preIdx=0;
+    unordered_map<int,int>pos;
+    TreeNode* build(vector<int>&preorder,int inStart,int inEnd){
+        if(inStart>inEnd){
+            return NULL;
         }
-        int rootVal=preorder[idx];
-        int i_val;
-        for(int i=start;i<end;i++){
-            if(inorder[i]==rootVal){
-                i_val=i;
-                break;
-            }
-        }
-        idx++;
-        TreeNode* root=new TreeNode(rootVal);
-        root->left=f(preorder,inorder,start,i_val-1,idx);
-        root->right=f(preorder,inorder,i_val+1,end,idx);
+        int rootVal=preorder[preIdx];
+        preIdx++;
+        TreeNode* root= new TreeNode(rootVal);
+        //find inorder index for splitting
+        int idx=pos[rootVal];
+        root->left=build(preorder,inStart,idx-1);
+        root->right=build(preorder,idx+1,inEnd);
 
         return root;
-    }
 
+    }
     TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
-        int n=preorder.size();
-        int idx=0;
-        return f(preorder,inorder,0,n-1,idx);
+        for(int i=0;i<inorder.size();i++){
+            pos[inorder[i]]=i;
+        }
+        return build(preorder,0,inorder.size()-1);
     }
 };
