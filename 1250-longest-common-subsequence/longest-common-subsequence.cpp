@@ -22,6 +22,27 @@ public:
                 }
             }
         }
+        
+
+        int i=m,j=n;
+        string lcs="";
+        while(i>0 && j>0){
+            if(text1[i-1]==text2[j-1]){
+                lcs.push_back(text1[i-1]);
+                i--;
+                j--;
+            }else{
+                //pata kro konsa bada hai upper wala ya left wala
+                if(dp[i-1][j]>dp[i][j-1]){
+                    i--;
+                }else{
+                    j--;
+                }
+            }
+        }
+        reverse(lcs.begin(),lcs.end());
+        cout<<lcs<<endl;
+
         return dp[m][n];
     }
 };
