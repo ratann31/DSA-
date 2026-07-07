@@ -1,17 +1,18 @@
 class Solution {
 public:
     int maxProfit(vector<int>& prices) {
-        int mn=INT_MAX;
+        int n=prices.size();
         int ans=0;
-
-        for(int i=0;i<prices.size();i++){
-            //best buying price till now 
-            mn=min(mn,prices[i]);
-
-            //sell today
-            int profit=prices[i]-mn;
-            ans=max(ans,profit);
+        int currStock = prices[0];
+        for(int i=1;i<n;i++){
+            if(prices[i]>=currStock){
+                int profit = prices[i]-currStock;
+                ans=max(ans,profit);
+            }else{
+                currStock = prices[i];
+            }
         }
         return ans;
+
     }
 };
