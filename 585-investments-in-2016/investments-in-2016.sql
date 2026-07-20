@@ -10,5 +10,5 @@ where tiv_2015 in (
     select lat,lon
     from Insurance
     group by lat,lon
-    having count(*)=1
+    having count(lat)=1
 )
