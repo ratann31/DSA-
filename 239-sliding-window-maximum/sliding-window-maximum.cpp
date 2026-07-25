@@ -1,25 +1,31 @@
 class Solution {
 public:
     vector<int> maxSlidingWindow(vector<int>& nums, int k) {
-        /*
-        1.create a max heap
-        2.put only top k max element in the heap
-        3.top element at the last will be the ans
-        */
         int n=nums.size();
+        deque<int>dq;
         vector<int>ans;
-        priority_queue<pair<int,int>>pq;
+
+        //1st Window
         for(int i=0;i<k;i++){
-            pq.push({nums[i],i});
-        }
-        ans.push_back(pq.top().first);
-        for(int i=k;i<n;i++){
-            pq.push({nums[i],i});
-            while(pq.top().second<=i-k){
-                pq.pop();
+            while(dq.size()>0 && nums[dq.back()]<=nums[i]){
+                dq.pop_back();
             }
-            ans.push_back(pq.top().first);
+            dq.push_back(i);
         }
+        //remaining windows
+        for(int i=k;i<n;i++){
+            ans.push_back(nums[dq.front()]);
+            int startIdx=i-k+1;
+            //jo elements window ke bahar hai usko htao
+            while(!dq.empty() && dq.front()<startIdx){
+                dq.pop_front();
+            }
+            while(!dq.empty() && dq.size()>0 && nums[dq.back()]<=nums[i]){
+                dq.pop_back();
+            }
+            dq.push_back(i);
+        }
+        ans.push_back(nums[dq.front()]);
         return ans;
     }
 };
