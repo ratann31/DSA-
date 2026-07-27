@@ -1,40 +1,44 @@
 class Solution {
 public:
-    bool dfs(int currNode,vector<vector<int>>&adj,vector<int>&vis,vector<int>&pathVis){
-        vis[currNode]=1;
-        pathVis[currNode]=1;
+    bool dfs(int node,unordered_map<int,vector<int>>&adj, vector<bool>&vis,vector<bool>&recStack){
+        vis[node]=true;
+        recStack[node]=true;
 
-        for(auto &it:adj[currNode]){
+        for(auto &it:adj[node]){
             if(!vis[it]){
-                if(dfs(it,adj,vis,pathVis)==true){
+                if(dfs(it,adj,vis,recStack)){
                     return true;
                 }
-            }
-            else if(vis[it]==1 && pathVis[it]==1){
-                return true;
-            }
-        }
-        pathVis[currNode]=0;
-        return false;
-    }
-
-    bool checkCycle(vector<vector<int>>&adj,int V){
-        vector<int>vis(V,0);
-        vector<int>pathVis(V,0);
-        for(int i=0;i<V;i++){
-            if(!vis[i]){
-                if(dfs(i,adj,vis,pathVis)==true)return true;
+            }else if(recStack[it]){
+                return true; 
             }
         }
+        recStack[node]=false;
         return false;
     }
     bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
-        vector<vector<int>>adj(numCourses);
+       
+        int V=numCourses;
+
+        unordered_map<int,vector<int>>adj;
         for(int i=0;i<prerequisites.size();i++){
             int u=prerequisites[i][0];
             int v=prerequisites[i][1];
-            adj[u].push_back(v);
+
+            adj[v].push_back(u);
         }
-        return !(checkCycle(adj,numCourses));
+
+        vector<bool>vis(V,false);
+        vector<bool>recStack(V,false);
+
+        for(int i=0;i<V;i++){
+            if(!vis[i]){
+                if(dfs(i,adj,vis,recStack)){ //cycle found
+                    return false;
+                }   
+            }
+        }
+
+        return true;
     }
 };
