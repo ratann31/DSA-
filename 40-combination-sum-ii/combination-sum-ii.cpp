@@ -1,23 +1,29 @@
 class Solution {
 public:
-    void solve(int idx,int target,vector<int>& candidates,vector<vector<int>>&ans,vector<int>&ds){
-        if(target==0){
-            ans.push_back(ds);
-            return;
-        }
-        for(int i=idx;i<candidates.size();i++){
-            if(i>idx && candidates[i]==candidates[i-1]) continue;
-            if(candidates[i]>target) break;
-            ds.push_back(candidates[i]);
-            solve(i+1,target-candidates[i],candidates,ans,ds);
-            ds.pop_back();
-        }
+    void f(int idx,int t,vector<int>&temp,vector<vector<int>>&ans,vector<int>&candidates){
+            if(t==0){
+                ans.push_back(temp);
+                return;
+            }
+            if(idx>=candidates.size() || candidates[idx]>t){
+                return;
+            }
+            //take
+            temp.push_back(candidates[idx]);
+            f(idx+1,t-candidates[idx],temp,ans,candidates);
+            temp.pop_back();
+            //handle duplicates after taking
+            while(idx+1< candidates.size() && candidates[idx]==candidates[idx+1]){
+                idx++;
+            }
+            //not take 
+            f(idx+1,t,temp,ans,candidates);
     }
     vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
-        sort(candidates.begin(),candidates.end());
         vector<vector<int>>ans;
-        vector<int>ds;
-        solve(0,target,candidates,ans,ds);
+        vector<int>temp;
+        sort(candidates.begin(),candidates.end());
+        f(0,target,temp,ans,candidates);
         return ans;
     }
 };
