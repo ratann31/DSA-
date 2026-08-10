@@ -11,11 +11,12 @@ public:
             //take
             temp.push_back(candidates[idx]);
             f(idx+1,t-candidates[idx],temp,ans,candidates);
-            temp.pop_back();
+           
             //handle duplicates after taking
             while(idx+1< candidates.size() && candidates[idx]==candidates[idx+1]){
                 idx++;
             }
+            temp.pop_back();
             //not take 
             f(idx+1,t,temp,ans,candidates);
     }
