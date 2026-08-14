@@ -6,7 +6,7 @@ public:
             return {};
         }
         string temp = s.substr(0,10);
-
+        vector<string>ans;
         unordered_map<string,int>mpp;
         set<string>st;
         mpp[temp]++;
@@ -16,15 +16,15 @@ public:
             temp.erase(0,1);
             l++;
             mpp[temp]++;
-            if(mpp[temp]>1){
-                st.insert(temp);
+            if(mpp[temp]==2){
+                ans.push_back(temp);
             }
             r++;
         }
-        vector<string>ans;
-        for(auto &it:st){
-            ans.push_back(it);
-        }
+        // vector<string>ans;
+        // for(auto &it:st){
+        //     ans.push_back(it);
+        // }
 
         return ans;
 
