@@ -2,30 +2,26 @@ class Solution {
 public:
     int longestOnes(vector<int>& nums, int k) {
         int n=nums.size();
-        int ans=0;
-        int currSum=0;
 
+        unordered_map<int,int>mpp;//{el,freq}
         int l=0,r=0;
-        int cnt=0;
+        int maxLen=0;
         while(r<n){
-            currSum+=nums[r];
-            if(nums[r]==0)cnt++;
+            mpp[nums[r]]++;
 
-            if(cnt>k){
-                while(cnt>k){
-                    if(nums[l]==0){
-                        cnt--;
-                    }else{
-                        currSum-=1;
-                    }
-                    l++;
+            while(mpp[0]>k){
+                mpp[nums[l]]--;
+
+                if(mpp[nums[l]]==0){
+                    mpp.erase(nums[l]);
                 }
-            }else{
-                int len=r-l+1;
-                ans=max(ans,len);
+                l++;
             }
+
+            maxLen=max(maxLen,r-l+1);
             r++;
-        }   
-        return ans;
+        }
+
+        return maxLen;
     }
 };
