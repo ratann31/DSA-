@@ -1,29 +1,32 @@
 class Solution {
 public:
-    int atMost(vector<int>& nums, int k) {
-        if (k < 0) return 0;
+    int f(vector<int>&arr,int k){
+        unordered_map<int,int>mpp;
 
-        unordered_map<int, int> mp;
-        int l = 0;
-        int count = 0;
+        int l=0,r=0;
+        int ans=0;
 
-        for (int r = 0; r < nums.size(); r++) {
-            mp[nums[r]]++;
+        while(r<arr.size()){
+            mpp[arr[r]]++;
 
-            while (mp.size() > k) {
-                mp[nums[l]]--;
-                if (mp[nums[l]] == 0)
-                    mp.erase(nums[l]);
+            while(mpp.size()>k){
+                mpp[arr[l]]--;
+
+                if(mpp[arr[l]]==0){
+                    mpp.erase(arr[l]);
+                }
                 l++;
             }
 
-            count += (r - l + 1);
+            ans+=r-l+1;
+            r++;
         }
 
-        return count;
+        return ans;
     }
-
     int subarraysWithKDistinct(vector<int>& nums, int k) {
-        return atMost(nums, k) - atMost(nums, k - 1);
+        int n=nums.size();
+
+        return f(nums,k)-f(nums,k-1);
     }
 };
