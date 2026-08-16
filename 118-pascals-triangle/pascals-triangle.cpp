@@ -2,21 +2,24 @@ class Solution {
 public:
     vector<int>ithRow(int rowNo){
         long long ans=1;
-        vector<int>res;
-        res.push_back(1);
+        vector<int>temp;
+        temp.push_back(1);
+
         for(int i=1;i<=rowNo;i++){
             ans=ans*(rowNo-i+1);
             ans=ans/i;
-            res.push_back(ans);
+            temp.push_back(ans);
+
         }
-        return res;
+        return temp;
+
     }
     vector<vector<int>> generate(int numRows) {
-        vector<vector<int>>result;
-        result.push_back({1});
+        vector<vector<int>>ans;
+        ans.push_back({1});
         for(int i=1;i<numRows;i++){
-            result.push_back(ithRow(i));
+            ans.push_back(ithRow(i));
         }
-        return result;
+        return ans;
     }
 };
