@@ -1,31 +1,26 @@
 class Solution {
 public:
-    bool isAlphaNum(char ch){
-        return (ch>='a' && ch<='z') || (ch>='A' && ch<='Z') || (ch>='0' && ch<='9');
-    }
-    bool checkPalindrome(string s){
+    bool check(string s){
         int n=s.size();
-        int l=0,r=n-1;
-        for(int i=0;i<n/2;i++){
-            if(s[l]!=s[r])return false;
-            l++;
-            r--;
+        int left=0,right=n-1;
+        while(left<=right){
+            if(s[left]!=s[right])return false;
+            left++;
+            right--;
         }
         return true;
     }
     bool isPalindrome(string s) {
-        int n=s.size();
         string temp="";
-        for(auto &it:s){
-            it=tolower(it);
-        }
-        cout<<temp<<endl;
-        for(int i=0;i<n;i++){
-            if(isAlphaNum(s[i])){
+        for(int i=0;i<s.size();i++){
+            if(isalnum(s[i])){
                 temp+=s[i];
             }
         }
-        //cout<<temp<<endl;
-        return checkPalindrome(temp);
+        for(int i=0;i<temp.size();i++){
+            temp[i]=tolower(temp[i]);
+        }
+
+        return check(temp);
     }
 };
