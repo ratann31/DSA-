@@ -1,8 +1,8 @@
 class Solution {
     public int maxProduct(int[] nums) {
         int n=nums.length;
-
         int ans=Integer.MIN_VALUE;
+
         int prefix=1;
         int suffix=1;
 
@@ -17,6 +17,5 @@ class Solution {
         }
 
         return ans;
-
     }
 }
