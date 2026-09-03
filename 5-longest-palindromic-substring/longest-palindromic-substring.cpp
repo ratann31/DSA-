@@ -1,48 +1,39 @@
 class Solution {
 public:
     string longestPalindrome(string s) {
-        int n=s.size();
+        int n = s.size();
+        string res = "";
 
-        string res="";
-        //odd length ke liye
-            for(int ax=0;ax<n;ax++){
-                int orb=1;
-                int len=1;
+        // Odd length palindromes
+        for(int ax = 0; ax < n; ax++) {
+            int l = ax;
+            int r = ax;
 
-                while(ax-orb>=0 && ax+orb<n){
-                    if(s[ax-orb]==s[ax+orb]){
-                        orb+=1;
-                        len+=2;
-                    }else{
-                        break;
-                    }
+            while(l >= 0 && r < n && s[l] == s[r]) {
+                if(r - l + 1 > res.size()) {
+                    res = s.substr(l, r - l + 1);
                 }
 
-                if(len>res.size()){
-                    int startIdx=ax-len/2;
-                    res=s.substr(startIdx,len);
-                }
-            }
-        //even length ke liye
-        for(int ax=0;ax<n-1;ax++){
-            int orb=1;
-            int len=0;
-
-            while(ax-orb+1 >=0 && ax+orb<n){
-                if(s[ax-orb+1]==s[ax+orb]){
-                    orb+=1;
-                    len+=2;
-                }else{
-                    break;
-                }
-            }
-
-            if(len>res.size()){
-                int startIdx=ax-len/2+1;
-                res=s.substr(startIdx,len);
+                l--;
+                r++;
             }
         }
-        return res;
 
+        // Even length palindromes
+        for(int ax = 0; ax < n - 1; ax++) {
+            int l = ax;
+            int r = ax + 1;
+
+            while(l >= 0 && r < n && s[l] == s[r]) {
+                if(r - l + 1 > res.size()) {
+                    res = s.substr(l, r - l + 1);
+                }
+
+                l--;
+                r++;
+            }
+        }
+
+        return res;
     }
 };
