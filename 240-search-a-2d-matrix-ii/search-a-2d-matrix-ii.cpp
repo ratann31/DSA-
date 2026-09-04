@@ -4,15 +4,14 @@ public:
         int n=matrix.size();
         int m=matrix[0].size();
 
-        int r=0;
-        int c=m-1;
-        while(r<n && c>=0){
-            if(matrix[r][c]==target){
+        int row=0,col=m-1;
+        while(row<n && col>=0){
+            if(matrix[row][col]==target){
                 return true;
-            }else if(matrix[r][c]>target){
-                c--;
+            }else if(matrix[row][col]>target){
+                col--;
             }else{
-                r++;
+                row++;
             }
         }
         return false;
