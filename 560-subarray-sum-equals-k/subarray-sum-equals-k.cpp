@@ -4,16 +4,19 @@ public:
         int n=nums.size();
         unordered_map<int,int>mpp;
         mpp[0]=1;
-        int sum=0;
-        int count=0;
+        int currSum=0;
+        int ans=0;
         for(int i=0;i<n;i++){
-            sum+=nums[i];
-            int rem=sum-k;
+            currSum+=nums[i];
+
+            int rem=currSum-k;
             if(mpp.find(rem)!=mpp.end()){
-                count+=mpp[rem];
+                ans+=mpp[rem];
             }
-            mpp[sum]++;
+
+            mpp[currSum]++;
         }
-        return count;
+
+        return ans;
     }
 };
