@@ -5,10 +5,13 @@ public:
         vector<vector<int>>ans;
 
         sort(nums.begin(),nums.end());
+        int i=0;
+        while(i<n){
 
-        for(int i=0;i<n;i++){
-            
-            if(i>0 && nums[i]==nums[i-1])continue; 
+            if(i>0 && nums[i]==nums[i-1]){
+                i++;
+                continue;
+            } 
             int j=i+1;
             int k=n-1;
 
@@ -29,6 +32,8 @@ public:
                     k--;
                 }
             }
+
+            i++;
         }
         return ans;
         
