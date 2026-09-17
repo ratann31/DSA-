@@ -4,15 +4,15 @@ public:
         int n=nums.size();
 
         int currSum=0;
-        int maxSum=INT_MIN;
+        int maxSum=nums[0];
 
         for(int i=0;i<n;i++){
-            currSum+=nums[i];
-            maxSum=max(maxSum,currSum);
-
-            if(currSum<0){
-                currSum = 0;
+            if(nums[i]>=currSum+nums[i]){
+                currSum=nums[i];
+            }else{
+                currSum+=nums[i];
             }
+            maxSum=max(maxSum,currSum);
         }
 
         return maxSum;
