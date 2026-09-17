@@ -1,17 +1,22 @@
 class Solution {
 public:
     int maxProfit(vector<int>& prices) {
-        int profit=0;
-        int buyPrice=prices[0];
+        int n=prices.size();
 
-        for(int i=0;i<prices.size();i++){
-            if(prices[i]<=buyPrice){
-                buyPrice=prices[i];
+        int maxProfit=0;
+        int currPrice = prices[0];
+
+        for(int i=1;i<n;i++){
+            //if other stocks are less than currPrice then currPrice = prices[i]
+            if(prices[i]<=currPrice){
+                currPrice = prices[i];
             }else{
-                profit=max(profit,prices[i]-buyPrice);
+                //sell current stock
+                int profit=prices[i]-currPrice;
+                maxProfit=max(maxProfit,profit);
             }
         }
 
-        return profit;
+        return maxProfit;
     }
 };
