@@ -2,9 +2,10 @@ class Solution {
 public:
     int lengthOfLIS(vector<int>& nums) {
         int n=nums.size();
+
         set<int>st;
         for(int i=0;i<n;i++){
-            if(st.empty() || nums[i]>*st.rbegin()){
+            if(st.empty() || *st.rbegin()<nums[i]){
                 st.insert(nums[i]);
             }else{
                 auto it=st.lower_bound(nums[i]);
@@ -12,6 +13,7 @@ public:
                 st.insert(nums[i]);
             }
         }
+
         return st.size();
     }
 };
