@@ -7,14 +7,17 @@ public:
         int maxSum=nums[0];
 
         for(int i=1;i<n;i++){
-            if(nums[i]>=currSum+nums[i]){
-                currSum=nums[i];
-            }else{
-                currSum+=nums[i];
-            }
-            maxSum=max(maxSum,currSum);
+           if(nums[i]>=currSum+nums[i]){
+            currSum=nums[i];
+           }else{
+            currSum+=nums[i];
+           }
+
+           maxSum=max(maxSum,currSum);
         }
 
         return maxSum;
+
+
     }
 };
