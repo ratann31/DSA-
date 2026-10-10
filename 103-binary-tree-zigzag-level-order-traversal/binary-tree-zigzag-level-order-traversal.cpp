@@ -3,15 +3,20 @@ public:
     vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
         if(root==NULL)return {};
         vector<vector<int>>ans;
+
         queue<TreeNode*>q;
         q.push(root);
-        bool dir=true;//left->right;
+
+        bool leftToRight=true;
+
         while(!q.empty()){
             int sz=q.size();
             vector<int>temp;
+
             while(sz--){
                 TreeNode* currNode=q.front();
                 q.pop();
+
                 temp.push_back(currNode->val);
                 if(currNode->left){
                     q.push(currNode->left);
@@ -20,12 +25,17 @@ public:
                     q.push(currNode->right);
                 }
             }
-            if(!dir){
+
+            if(leftToRight){
+                ans.push_back(temp);
+               
+            }else{
                 reverse(temp.begin(),temp.end());
+                ans.push_back(temp);
             }
-            ans.push_back(temp);
-            dir=!(dir);
+            leftToRight=!leftToRight;
         }
+
         return ans;
     }
 };
