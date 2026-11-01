@@ -1,11 +1,12 @@
 class Solution {
 public:
     vector<int> majorityElement(vector<int>& nums) {
+        int n=nums.size();
+
         int cnt1=0,cnt2=0;
         int ele1=0,ele2=0;
 
-        //first pass:find potential candidates
-        for(int i=0;i<nums.size();i++){
+        for(int i=0;i<n;i++){
             if(nums[i]==ele1){
                 cnt1++;
             }else if(nums[i]==ele2){
@@ -20,23 +21,30 @@ public:
                 cnt1--;
                 cnt2--;
             }
+
+            
         }
-        //second pass:verify the candidates
-        cnt1=cnt2=0;
-        for(int i=0;i<nums.size();i++){
-            if(nums[i]==ele1){
-                cnt1++;
-            }else if(nums[i]==ele2){
-                cnt2++;
+
+        cnt1=0,cnt2=0;
+
+            for(int i=0;i<n;i++){
+                if(nums[i]==ele1){
+                    cnt1++;
+                }else if(nums[i]==ele2){
+                    cnt2++;
+                }
             }
-        }
-        vector<int>ans;
-        if(cnt1>nums.size()/3){
-            ans.push_back(ele1);
-        }
-        if(cnt2>nums.size()/3){
-            ans.push_back(ele2);
-        }
+
+            vector<int>ans;
+            if(cnt1>(n/3)){
+                ans.push_back(ele1);
+            }
+            if(cnt2>(n/3)){
+                ans.push_back(ele2);
+            }
+
         return ans;
+
+
     }
 };
