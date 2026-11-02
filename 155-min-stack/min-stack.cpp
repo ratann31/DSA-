@@ -2,19 +2,19 @@ class MinStack {
 public:
     stack<int>st;
     stack<int>minSt;
-
+    
     MinStack() {
         
     }
     
     void push(int value) {
-        st.push(value);
+       st.push(value);
 
-        if(minSt.empty()){
-            minSt.push(value);
-        }else{
-            minSt.push(min(value,minSt.top()));
-        }
+       if(minSt.empty()){
+        minSt.push(value);
+       }else{
+        minSt.push(min(minSt.top(),value));
+       }
     }
     
     void pop() {
